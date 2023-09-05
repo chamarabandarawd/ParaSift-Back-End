@@ -1,4 +1,6 @@
 import express, { json } from "express";
+import morgan from "morgan";
+
 const app = express();
 
 const PORT = 5000;
@@ -6,7 +8,9 @@ app.use(json());
 
 let posts = [];
 
-app.get("/posts", (req, res) => {
+app.use(morgan("dev"));
+
+app.get("/posts", (req, res) => { 
   res.json(posts);
 })
 
