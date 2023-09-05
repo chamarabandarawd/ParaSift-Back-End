@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deletePostById, getAllPosts, getPostById, savePosts, updatePostById } from "./controller/postController.js";
+import { deletePostById, getAllPosts, getPostById, savePosts, updatePostById, generateSummary } from "../controller/summaryController.js";
 
 const postRouter = Router();
 
@@ -10,6 +10,8 @@ postRouter
     .get(getAllPosts)
     .post(savePosts)
 
+postRouter.route("/generate").post(generateSummary);
+
 postRouter
     .route("/:id")
     .get(getPostById)
@@ -17,7 +19,7 @@ postRouter
     .put(updatePostById)
 
 
-    export default postRouter;
+export default postRouter;
 
 
 

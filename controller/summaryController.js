@@ -1,10 +1,12 @@
+import { fetchSummary } from "../util/generateSummary.js";
+import { v4 as uuidv4 } from 'uuid';
 
 let posts = [];
 
 export async function savePosts(req, res) {
-    const body = req.body;
-    posts.push(body);
-    res.send(body);
+    const updatedPost={...req.body,id:uuidv4().slice(0,8)}
+    posts.push(updatedPost);
+    res.send(updatedPost);
 } 
 
 export async function getAllPosts(req, res){
@@ -46,4 +48,13 @@ export async function updatePostById(req, res)  {
         res.status(404).json({ message: "this posts not found" })
     }
 
+}
+
+export async function generateSummary(req,res){
+    try {
+        const generatedReply=await fetchSummary(req.body.text);
+        res.json({message: generatedReply});
+    } catch (error) {
+        throw new Error(error.message);
+    }
 }
